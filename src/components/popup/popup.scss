@@ -1,0 +1,47 @@
+@import "../index/index";
+
+.ring-dropdown {
+  position: absolute;
+  margin-top: 4px;
+  z-index: $ring-overlay-z-index;
+
+  font-size: 13px;
+  text-align: center;
+
+  border: 1px solid #ADADAD; // IE8-
+  border-color: rgba(0, 0, 0, .2);
+
+  background-color: #ffffff;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2);
+  border-radius: 3px;
+
+  @include ring-font;
+}
+
+.ring-dropdown_bound {
+  margin-top: 0;
+
+  border-top: 0;
+  border-radius: 2px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.ring-dropdown__i {
+  position: relative;
+
+  padding-top: $ring-unit/2 + 1;
+  z-index: 1;
+
+  line-height: normal;
+
+  border-radius: 3px;
+  background-color: #FFF;
+
+  .ring-dropdown_typed & {
+    display: table;
+    width: 100%;
+    padding: 0;
+  }
+
+}

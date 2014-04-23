@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/IdeaProjects/hackaton.react/.idea/hackaton.react.iml" filepath="$USER_HOME$/IdeaProjects/hackaton.react/.idea/hackaton.react.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/hackaton.react.iml" filepath="$PROJECT_DIR$/.idea/hackaton.react.iml" />
     </modules>
   </component>
 </project>
