@@ -23,10 +23,6 @@ module.exports = function (config) {
         }]
       },
       resolve: {
-        alias: {
-          popo: 'popo.js/popo.js',
-          computedStyle: 'computedStyle/dist/computedStyle.commonjs.js'
-        },
         modulesDirectories: ['bower_components', 'node_modules']
       }
     },

@@ -5,8 +5,8 @@
 'use strict';
 
 var React = require('react/addons');
-var computedStyle = require('computedStyle');
-require('popo');
+var computedStyle = require('computedStyle/dist/computedStyle.commonjs');
+require('popo.js/popo'); // Uses global :(
 require('./popup.scss');
 
 var sumProps = function(target, props) {

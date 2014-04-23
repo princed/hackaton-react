@@ -39,10 +39,6 @@ module.exports = function (grunt) {
           reasons: true
         },
         resolve: {
-          alias: {
-            popo: 'popo.js/popo.js',
-            computedStyle: 'computedStyle/dist/computedStyle.commonjs.js'
-          },
           modulesDirectories: ['bower_components', 'node_modules']
         },
         jshint: grunt.util._.merge(jshintConfig, {
