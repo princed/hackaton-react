@@ -1,6 +1,6 @@
-@import "../index/index";
+@import "../global/global";
 
-.ring-dropdown {
+.popup {
   position: absolute;
   margin-top: 4px;
   z-index: $ring-overlay-z-index;
@@ -18,7 +18,7 @@
   @include ring-font;
 }
 
-.ring-dropdown_bound {
+.popup_bound {
   margin-top: 0;
 
   border-top: 0;
@@ -27,7 +27,7 @@
   border-top-right-radius: 0;
 }
 
-.ring-dropdown__i {
+.popup__i {
   position: relative;
 
   padding-top: $ring-unit/2 + 1;
@@ -38,7 +38,7 @@
   border-radius: 3px;
   background-color: #FFF;
 
-  .ring-dropdown_typed & {
+  .popup_typed & {
     display: table;
     width: 100%;
     padding: 0;

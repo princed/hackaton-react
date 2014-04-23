@@ -1,0 +1,21 @@
+{
+  "name": "hackaton.react",
+  "version": "0.0.0",
+  "homepage": "https://github.com/princed/hackaton-react",
+  "authors": [
+    "Eugene Datsky <eugene@datsky.ru>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "computedStyle": "~0.1.3",
+    "popo.js": "~1.0.0"
+  }
+}

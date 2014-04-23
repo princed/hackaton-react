@@ -38,7 +38,8 @@ module.exports = function (grunt) {
     pkg: pkgConfig,
     webpack: {
       development: {
-        entry: './<%= pkg.src %>/components/index/index.js',
+        context: __dirname + '/src/components/',
+        entry: './combobox/combobox.js',
         output: {
           path: '<%= pkg.src %>/scripts/',
           filename: 'main.js'
@@ -48,6 +49,13 @@ module.exports = function (grunt) {
         stats: {
           colors: true,
           reasons: true
+        },
+        resolve: {
+          alias: {
+            popo: "popo.js/popo.js",
+            computedStyle: "computedStyle/dist/computedStyle.commonjs.js"
+          },
+          modulesDirectories: ["bower_components", "node_modules"]
         },
         jshint: grunt.util._.merge(jshintConfig, {
           emitErrors: false,
