@@ -13,7 +13,6 @@ var sumProps = function(target, props) {
   var propsList = props.split(' ');
 
   return propsList.reduce(function(sum, prop) {
-    console.log(sum);
     return sum + parseInt(computedStyle(target, prop), 10);
   }, 0);
 };

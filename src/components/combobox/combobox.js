@@ -59,7 +59,6 @@ var Combobox = React.createClass({
     }
   },
   handleSelect: function(item) {
-    console.log(item);
     this.props.onSelect(item.value);
     this.hideItems();
   },
