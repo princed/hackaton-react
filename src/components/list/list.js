@@ -32,7 +32,7 @@ var List = React.createClass({
       return <div className={classes} key={value} onClick={onSelect}>{value}</div>;
     });
 
-    return <div className="list">{list}</div>;
+    return <div className='list'>{list}</div>;
   }
   /*jshint ignore:end */
 });
