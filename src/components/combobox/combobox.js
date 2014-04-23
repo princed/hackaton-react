@@ -13,7 +13,7 @@ var ComboBox = React.createClass({
 
     return {
       active: null,
-      filteredItems: self.props.items.
+      filteredItems: this.props.items.
         map(function(value) {
           return {value: value};
         })
@@ -37,6 +37,14 @@ var ComboBox = React.createClass({
       active: true
     });
   },
+  handleKeys: function(e) {
+    var value = this.refs.input.getDOMNode().value;
+
+    if (e.keyCode === 13 && this.props.items.indexOf(value) === -1) {
+      this.props.items.push(value);
+    }
+    this.handleChange();
+  },
   handleBlur: function() {
 //    this.setState({
 //      active: false
@@ -54,7 +62,7 @@ var ComboBox = React.createClass({
 
     return (
       <div>
-        <input ref="input" onBlur={this.handleBlur} onClick={this.handleClick} onChange={this.handleChange} placeholder="filter me now!" />
+        <input ref="input" onKeyUp={this.handleKeys} onBlur={this.handleBlur} onClick={this.handleClick} onChange={this.handleChange} placeholder="filter me now!" />
         {popupList}
       </div>
     );
