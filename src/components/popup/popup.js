@@ -17,6 +17,13 @@ var sumProps = function(target, props) {
   }, 0);
 };
 
+var getWidth = function(target) {
+  var widthProps = computedStyle(target, 'box-sizing') === 'border-box' ?
+    'width' :
+    'width border-left border-right padding-left padding-right';
+
+  return sumProps(target, widthProps);
+};
 
 var Popup = React.createClass({
   propTypes: {
@@ -25,17 +32,12 @@ var Popup = React.createClass({
   position: function () {
     var self = this.getDOMNode();
     var target = this.props.getTarget();
-    var widthProps = computedStyle(target, 'box-sizing') === 'border-box' ?
-        'width' :
-        'width border-left border-right padding-left padding-right';
-    var width = sumProps(target, widthProps) -
-                sumProps(self, 'border-left border-right') + 'px';
 
     popo(self, {
       position: 'left top left bottom',
       base: target
     });
-    self.style.width = width;
+    self.style.width = getWidth(target) - sumProps(self, 'border-left border-right') + 'px';
   },
   componentDidMount: function() {
     this.position();
