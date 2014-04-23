@@ -27,4 +27,8 @@ var onAdd = function(item) {
   log('Added ' + item);
 };
 
-React.renderComponent(<Combobox items={ITEMS} onSelect={onSelect} onAdd={onAdd} />, document.getElementById('content')); // jshint ignore:line
+React.renderComponent(Combobox({
+  items: ITEMS,
+  onSelect: onSelect,
+  onAdd: onAdd
+}), document.getElementById('combobox'));
