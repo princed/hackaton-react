@@ -11,8 +11,7 @@ require('./popup.scss');
 
 var Popup = React.createClass({
   propTypes: {
-    getTarget: React.PropTypes.func.isRequired,
-    children: React.PropTypes.component
+    getTarget: React.PropTypes.func.isRequired
   },
   position: function () {
     var self = this.getDOMNode();

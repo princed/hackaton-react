@@ -1,0 +1,50 @@
+@import "../global/global";
+
+.list {
+  max-height: 23*$ring-unit;
+  overflow: scroll;
+}
+
+.list__item {
+  display: block;
+  overflow: hidden;
+  padding: 0 $ring-unit*2;
+
+  text-align: left;
+  font-size: 13px !important;
+  line-height: $ring-unit*3;
+
+  vertical-align: bottom;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:last-child {
+    margin-bottom: 3px;
+  }
+
+  &.list__item_error,
+  &.list__item_error .list__item__content {
+    color: #F00 !important;
+    cursor: default;
+
+    // Redefine ring-link
+    &:hover, &:focus, &:visited {
+      color: #F00 !important;
+    }
+  }
+
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+.list__item_action {
+  cursor: pointer;
+  color: #000 !important;
+
+  &:hover:not(.list__item_error) {
+    color: #FFF !important;
+    background-color: #25B7FF;
+  }
+}
