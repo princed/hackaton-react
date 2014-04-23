@@ -9,6 +9,16 @@ var computedStyle = require('computedStyle');
 require('popo');
 require('./popup.scss');
 
+var sumProps = function(target, props) {
+  var propsList = props.split(' ');
+
+  return propsList.reduce(function(sum, prop) {
+    console.log(sum);
+    return sum + parseInt(computedStyle(target, prop), 10);
+  }, 0);
+};
+
+
 var Popup = React.createClass({
   propTypes: {
     getTarget: React.PropTypes.func.isRequired
@@ -16,13 +26,8 @@ var Popup = React.createClass({
   position: function () {
     var self = this.getDOMNode();
     var target = this.props.getTarget();
-    var width = parseInt(computedStyle(target, 'width'), 10) +
-                parseInt(computedStyle(target, 'border-left'), 10) +
-                parseInt(computedStyle(target, 'border-right'), 10) +
-                parseInt(computedStyle(target, 'padding-left'), 10) +
-                parseInt(computedStyle(target, 'padding-right'), 10) -
-                parseInt(computedStyle(self, 'border-left'), 10) -
-                parseInt(computedStyle(self, 'border-right'), 10) + 'px';
+    var width = sumProps(target, 'width border-left border-right padding-left padding-right') -
+                sumProps(self, 'border-left border-right') + 'px';
 
     popo(self, {
       position: 'left top left bottom',
