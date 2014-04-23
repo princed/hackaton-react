@@ -16,7 +16,7 @@ var List = React.createClass({
   /*jshint ignore:start */
   render: function () {
     var props = this.props;
-    var list = this.props.items.map(function(item) {
+    var list = props.items.map(function(item) {
       var classes = React.addons.classSet({
         'list__item': true,
         'list__item_error': item.status === 'error',
