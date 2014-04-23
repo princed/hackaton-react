@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 
   var loaders = [{
     test: /\.scss$/,
-    loader: "style!css!sass"
+    loader: 'style!css!sass'
   }, {
     test: /\.js$/,
     loader: 'jsx-loader'
@@ -40,10 +40,10 @@ module.exports = function (grunt) {
         },
         resolve: {
           alias: {
-            popo: "popo.js/popo.js",
-            computedStyle: "computedStyle/dist/computedStyle.commonjs.js"
+            popo: 'popo.js/popo.js',
+            computedStyle: 'computedStyle/dist/computedStyle.commonjs.js'
           },
-          modulesDirectories: ["bower_components", "node_modules"]
+          modulesDirectories: ['bower_components', 'node_modules']
         },
         jshint: grunt.util._.merge(jshintConfig, {
           emitErrors: false,
