@@ -44,11 +44,9 @@ var Popup = React.createClass({
   },
   /*jshint ignore:start */
   render: function () {
-    return (
-        <div className='popup popup_bound'>
-          <div className='popup__i'>{this.props.children}</div>
-        </div>
-      )
+    return <div className='popup popup_bound'>
+             <div className='popup__i'>{this.props.children}</div>
+           </div>
   }
   /*jshint ignore:end */
 });
