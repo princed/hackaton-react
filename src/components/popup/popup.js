@@ -26,7 +26,10 @@ var Popup = React.createClass({
   position: function () {
     var self = this.getDOMNode();
     var target = this.props.getTarget();
-    var width = sumProps(target, 'width border-left border-right padding-left padding-right') -
+    var widthProps = computedStyle(target, 'box-sizing') === 'border-box' ?
+        'width' :
+        'width border-left border-right padding-left padding-right';
+    var width = sumProps(target, widthProps) -
                 sumProps(self, 'border-left border-right') + 'px';
 
     popo(self, {

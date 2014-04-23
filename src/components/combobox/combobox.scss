@@ -1,0 +1,33 @@
+@import "../global/global";
+
+.combobox__input {
+  box-sizing: border-box;
+  height: 3*$ring-unit;
+  margin: 0;
+  padding-left: $ring-unit / 2;
+  padding-right: $ring-unit / 2;
+  border: 1px solid #CCC;
+  background-color: #FFF;
+
+  @include ring-font;
+  font-size: 13px;
+  line-height: 20px;
+
+  &:active, &:focus {
+    border: 1px solid #25B7FF;
+    outline: 0;
+  }
+
+  &:disabled {
+    border: 1px solid #DEDEDE;
+    background-color: #F8F8F8;
+  }
+
+  &.combobox__input_correct {
+    border: 1px solid #84AB28;
+  }
+
+  &.combobox__input_error {
+    border: 1px solid #F00;
+  }
+}

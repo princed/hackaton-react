@@ -6,6 +6,7 @@
 
 var React = require('react/addons');
 var PopupList = require('../popup-list/popup-list');
+require('./combobox.scss');
 
 var Combobox = React.createClass({
   getInitialState: function() {
@@ -79,7 +80,7 @@ var Combobox = React.createClass({
 
     return (
       <span>
-        <input ref="input" onKeyUp={this.handleKeys} onBlur={this.handleBlur} onClick={this.showItems} onChange={this.handleChange} placeholder="filter me now!" />
+        <input className="combobox__input" ref="input" onKeyUp={this.handleKeys} onBlur={this.handleBlur} onClick={this.showItems} onChange={this.handleChange} placeholder="filter me now!" />
         {popupList}
       </span>
     );
