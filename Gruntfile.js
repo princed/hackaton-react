@@ -15,9 +15,6 @@ module.exports = function (grunt) {
   var jshintConfig = grunt.file.readJSON('.jshintrc');
 
   var loaders = [{
-    test: /\.css$/,
-    loader: 'style!css'
-  }, {
     test: /\.scss$/,
     loader: "style!css!sass"
   }, {
