@@ -7,7 +7,7 @@
 var React = require('react/addons');
 var PopupList = require('../popup-list/popup-list');
 
-var ComboBox = React.createClass({
+var Combobox = React.createClass({
   getInitialState: function() {
     return {
       active: null,
@@ -85,25 +85,4 @@ var ComboBox = React.createClass({
   /*jshint ignore:end */
 });
 
-var ITEMS = [
-  'lol',
-  'poll',
-  'goal',
-  'fall',
-  'tall'
-];
-
-var logElem = document.getElementById('log');
-var log = function(message) {
-  logElem.innerHTML = message;''
-};
-
-var onSelect = function(item) {
-  log('Selected ' + item);
-};
-var onAdd = function(item) {
-  log('Added ' + item);
-};
-React.renderComponent(<ComboBox items={ITEMS} onSelect={onSelect} onAdd={onAdd} />, document.getElementById('content')); // jshint ignore:line
-
-module.exports = ComboBox;
+module.exports = Combobox;

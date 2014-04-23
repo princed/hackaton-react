@@ -39,7 +39,7 @@ module.exports = function (grunt) {
     webpack: {
       development: {
         context: __dirname + '/src/components/',
-        entry: './combobox/combobox.js',
+        entry: './global/global.js',
         output: {
           path: '<%= pkg.src %>/scripts/',
           filename: 'main.js'
