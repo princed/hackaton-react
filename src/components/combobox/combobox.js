@@ -49,8 +49,10 @@ var Combobox = React.createClass({
       this.props.onAdd(value);
       this.handleChange();
       this.hideItems();
+    // Esc
     } else if (e.keyCode === 27) {
       this.hideItems();
+    // Input
     } else {
       this.showItems();
     }
