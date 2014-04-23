@@ -54,7 +54,7 @@ var ComboBox = React.createClass({
 
     return (
       <div>
-        <input ref="input" onBlur={this.handleBlur} onClick={this.handleClick} onChange={this.handleChange} placeholer="filter me now!" />
+        <input ref="input" onBlur={this.handleBlur} onClick={this.handleClick} onChange={this.handleChange} placeholder="filter me now!" />
         {popupList}
       </div>
     );
