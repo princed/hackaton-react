@@ -9,8 +9,6 @@ var PopupList = require('../popup-list/popup-list');
 
 var ComboBox = React.createClass({
   getInitialState: function() {
-    var self = this;
-
     return {
       active: null,
       filteredItems: this.props.items.
@@ -32,37 +30,54 @@ var ComboBox = React.createClass({
       filteredItems: filteredItems.length ? filteredItems : [{value: 'Found nothing', status: 'error'}]
     });
   },
-  handleClick: function() {
+  showItems: function() {
     this.setState({
       active: true
+    });
+  },
+  hideItems: function() {
+    this.setState({
+      active: false
     });
   },
   handleKeys: function(e) {
     var value = this.refs.input.getDOMNode().value;
 
-    if (e.keyCode === 13 && this.props.items.indexOf(value) === -1) {
+    // Enter
+    if (value && e.keyCode === 13 && this.props.items.indexOf(value) === -1) {
       this.props.items.push(value);
+      this.props.onAdd(value);
+      this.handleChange();
+      this.hideItems();
+    } else if (e.keyCode === 27) {
+      this.hideItems();
+    } else {
+      this.showItems();
     }
-    this.handleChange();
+  },
+  handleSelect: function(item) {
+    console.log(item);
+    this.props.onSelect(item.value);
+    this.hideItems();
   },
   handleBlur: function() {
-//    this.setState({
-//      active: false
-//    });
+//    this.hideItems();
   },
   propTypes: {
-    items: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+    items: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+    onAdd: React.PropTypes.func,
+    onSelect: React.PropTypes.func
   },
   getTarget: function() {
     return this.refs.input.getDOMNode();
   },
   /*jshint ignore:start */
   render: function() {
-    var popupList = this.state.active && <PopupList items={this.state.filteredItems} getTarget={this.getTarget}/>;
+    var popupList = this.state.active && <PopupList items={this.state.filteredItems} onSelect={this.handleSelect} getTarget={this.getTarget}/>;
 
     return (
       <div>
-        <input ref="input" onKeyUp={this.handleKeys} onBlur={this.handleBlur} onClick={this.handleClick} onChange={this.handleChange} placeholder="filter me now!" />
+        <input ref="input" onKeyUp={this.handleKeys} onBlur={this.handleBlur} onClick={this.showItems} onChange={this.handleChange} placeholder="filter me now!" />
         {popupList}
       </div>
     );
@@ -78,6 +93,17 @@ var ITEMS = [
   'tall'
 ];
 
-React.renderComponent(<ComboBox items={ITEMS} />, document.getElementById('content')); // jshint ignore:line
+var logElem = document.getElementById('log');
+var log = function(message) {
+  logElem.innerHTML = message;''
+};
+
+var onSelect = function(item) {
+  log('Selected ' + item);
+};
+var onAdd = function(item) {
+  log('Added ' + item);
+};
+React.renderComponent(<ComboBox items={ITEMS} onSelect={onSelect} onAdd={onAdd} />, document.getElementById('content')); // jshint ignore:line
 
 module.exports = ComboBox;
