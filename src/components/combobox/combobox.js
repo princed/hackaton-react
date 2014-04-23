@@ -76,14 +76,12 @@ var Combobox = React.createClass({
   },
   /*jshint ignore:start */
   render: function() {
-    var popupList = this.state.active && <PopupList items={this.state.filteredItems} onSelect={this.handleSelect} getTarget={this.getTarget}/>;
+    var popupList = this.state.active && <PopupList as="value" items={this.state.filteredItems} onSelect={this.handleSelect} getTarget={this.getTarget}/>;
 
-    return (
-      <span>
-        <input className="combobox__input" ref="input" onKeyUp={this.handleKeys} onBlur={this.handleBlur} onClick={this.showItems} onChange={this.handleChange} placeholder="filter me now!" />
-        {popupList}
-      </span>
-    );
+    return <span>
+      <input className="combobox__input" ref="input" onKeyUp={this.handleKeys} onBlur={this.handleBlur} onClick={this.showItems} onChange={this.handleChange} placeholder="filter me now!" />
+      {popupList}
+    </span>;
   }
   /*jshint ignore:end */
 });

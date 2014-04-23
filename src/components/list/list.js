@@ -10,11 +10,12 @@ require('./list.scss');
 var List = React.createClass({
   propTypes: {
     items: React.PropTypes.arrayOf(React.PropTypes.object),
+    as: React.PropTypes.string,
     onSelect: React.PropTypes.func
   },
   /*jshint ignore:start */
   render: function () {
-    var propsOnSelect = this.props.onSelect;
+    var props = this.props;
     var list = this.props.items.map(function(item) {
       var classes = React.addons.classSet({
         'list__item': true,
@@ -23,10 +24,12 @@ var List = React.createClass({
       });
 
       var onSelect = function() {
-        propsOnSelect(item)
+        props.onSelect(item)
       };
 
-      return <div className={classes} key={item.value} onClick={onSelect}>{item.value}</div>;
+      var value = props.as ? item[props.as] : item;
+
+      return <div className={classes} key={value} onClick={onSelect}>{value}</div>;
     });
 
     return <div className="list">{list}</div>;
