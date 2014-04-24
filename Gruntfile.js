@@ -13,6 +13,7 @@ module.exports = function (grunt) {
   // Read configuration from package.json
   var pkgConfig = grunt.file.readJSON('package.json');
   var jshintConfig = grunt.file.readJSON('.jshintrc');
+  var webpack = require('webpack');
 
   var loaders = [{
     test: /\.scss$/,
@@ -52,7 +53,16 @@ module.exports = function (grunt) {
             loader: 'jshint'
           }],
           loaders: loaders
-        }
+        },
+        plugins: [
+          new webpack.DefinePlugin({
+            "process.env": {
+              "NODE_ENV": JSON.stringify("production")
+            }
+          }),
+          new webpack.optimize.DedupePlugin(),
+          new webpack.optimize.UglifyJsPlugin()
+        ]
       }
     },
     watch: {
