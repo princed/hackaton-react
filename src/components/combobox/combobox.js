@@ -25,11 +25,8 @@ var Combobox = React.createClass({
       unmountPopup: noop
     };
   },
-//  componentDidMount: function() {
-//
-//  },
   componentWillUnmount: function() {
-    this.state.unmount();
+    this.state.unmountPopup();
   },
   getFilteredItems: function() {
     var inputValue = this.refs.input.getDOMNode().value;
@@ -48,6 +45,10 @@ var Combobox = React.createClass({
       return;
     }
     this.state.popup.setItems(this.getFilteredItems());
+  },
+  handleClick: function() {
+    this.refs.input.getDOMNode().select();
+    this.showItems();
   },
   showItems: function() {
     if (this.state.popup) {
@@ -72,9 +73,7 @@ var Combobox = React.createClass({
 
     // Enter
     if (value && e.keyCode === 13 && this.props.items.indexOf(value) === -1) {
-      this.props.items.push(value);
       this.props.onAdd(value);
-      this.handleChange();
       this.hideItems();
     // Esc
     } else if (e.keyCode === 27) {
@@ -85,6 +84,7 @@ var Combobox = React.createClass({
     }
   },
   handleSelect: function(item) {
+    this.refs.input.getDOMNode().value = item.value;
     this.props.onSelect(item.value);
     this.hideItems();
   },
@@ -94,7 +94,7 @@ var Combobox = React.createClass({
   /*jshint ignore:start */
   render: function() {
     return <input className='combobox__input' ref='input'
-        onKeyUp={this.handleKeys} onFocus={this.showItems} onClick={this.showItems} onChange={this.handleChange} placeholder='filter me now!' />;
+        onKeyUp={this.handleKeys} onFocus={this.showItems} onClick={this.handleClick} onChange={this.handleChange} placeholder='filter me now!' />;
   }
   /*jshint ignore:end */
 });
