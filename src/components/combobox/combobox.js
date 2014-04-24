@@ -29,7 +29,7 @@ var Combobox = React.createClass({
     this.state.unmountPopup();
   },
   getFilteredItems: function() {
-    var inputValue = this.refs.input.getDOMNode().value;
+    var inputValue = this.getTarget().value;
 
     var filteredItems = this.props.items.
       filter(function(value) {
@@ -47,7 +47,7 @@ var Combobox = React.createClass({
     this.state.popup.setItems(this.getFilteredItems());
   },
   handleClick: function() {
-    this.refs.input.getDOMNode().select();
+    this.getTarget().select();
     this.showItems();
   },
   showItems: function() {
@@ -69,7 +69,7 @@ var Combobox = React.createClass({
     this.state.popup.setVisible(false);
   },
   handleKeys: function(e) {
-    var value = this.refs.input.getDOMNode().value;
+    var value = this.getTarget().value;
 
     // Enter
     if (value && e.keyCode === 13 && this.props.items.indexOf(value) === -1) {
@@ -84,7 +84,7 @@ var Combobox = React.createClass({
     }
   },
   handleSelect: function(item) {
-    this.refs.input.getDOMNode().value = item.value;
+    this.getTarget().value = item.value;
     this.props.onSelect(item.value);
     this.hideItems();
   },
