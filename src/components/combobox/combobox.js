@@ -5,41 +5,67 @@
 'use strict';
 
 var React = require('react/addons');
+var Popup = require('../popup/popup');
 var PopupList = require('../popup-list/popup-list');
 require('./combobox.scss');
 
+var noop = function() {};
+var convertItem = function(value) {
+  return {value: value};
+};
+
 var Combobox = React.createClass({
+  propTypes: {
+    items: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+    onAdd: React.PropTypes.func,
+    onSelect: React.PropTypes.func
+  },
   getInitialState: function() {
     return {
-      active: null,
-      filteredItems: this.props.items.
-        map(function(value) {
-          return {value: value};
-        })
+      unmountPopup: noop
     };
   },
-  handleChange: function() {
+//  componentDidMount: function() {
+//
+//  },
+  componentWillUnmount: function() {
+    this.state.unmount();
+  },
+  getFilteredItems: function() {
+    var inputValue = this.refs.input.getDOMNode().value;
+
     var filteredItems = this.props.items.
       filter(function(value) {
-      return value.indexOf(this.refs.input.getDOMNode().value) !== -1;
-      }, this).
-      map(function(value) {
-        return {value: value};
-      });
+        return value.indexOf(inputValue) !== -1;
+      }).
+      map(convertItem);
 
-    this.setState({
-      filteredItems: filteredItems.length ? filteredItems : [{value: 'Found nothing', status: 'error'}]
-    });
+    return filteredItems.length ? filteredItems : [{value: 'Found nothing', status: 'error'}];
+  },
+  handleChange: function() {
+    if (!this.state.popup) {
+      this.showItems();
+      return;
+    }
+    this.state.popup.setItems(this.getFilteredItems());
   },
   showItems: function() {
+    if (this.state.popup) {
+      this.state.popup.setVisible(true);
+      return;
+    }
+
+    /*jshint ignore:start */
+    var popup = Popup.automount(<PopupList active={true} as='value' items={this.getFilteredItems()} onSelect={this.handleSelect} getTarget={this.getTarget}/>);
+    /*jshint ignore:end */
+
     this.setState({
-      active: true
+      unmountPopup: popup.unmount,
+      popup: popup.popup
     });
   },
   hideItems: function() {
-    this.setState({
-      active: false
-    });
+    this.state.popup.setVisible(false);
   },
   handleKeys: function(e) {
     var value = this.refs.input.getDOMNode().value;
@@ -62,25 +88,13 @@ var Combobox = React.createClass({
     this.props.onSelect(item.value);
     this.hideItems();
   },
-  handleBlur: function() {
-//    this.hideItems();
-  },
-  propTypes: {
-    items: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    onAdd: React.PropTypes.func,
-    onSelect: React.PropTypes.func
-  },
   getTarget: function() {
     return this.refs.input.getDOMNode();
   },
   /*jshint ignore:start */
   render: function() {
-    var popupList = this.state.active && <PopupList as='value' items={this.state.filteredItems} onSelect={this.handleSelect} getTarget={this.getTarget}/>;
-
-    return <span>
-      <input className='combobox__input' ref='input' onKeyUp={this.handleKeys} onBlur={this.handleBlur} onClick={this.showItems} onChange={this.handleChange} placeholder='filter me now!' />
-      {popupList}
-    </span>;
+    return <input className='combobox__input' ref='input'
+        onKeyUp={this.handleKeys} onFocus={this.showItems} onClick={this.showItems} onChange={this.handleChange} placeholder='filter me now!' />;
   }
   /*jshint ignore:end */
 });

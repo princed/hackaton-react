@@ -29,6 +29,11 @@ var Popup = React.createClass({
   propTypes: {
     getTarget: React.PropTypes.func.isRequired
   },
+  getInitialState: function() {
+    return {
+      active: this.props.active
+    };
+  },
   position: function () {
     var self = this.getDOMNode();
     var target = this.props.getTarget();
@@ -39,11 +44,43 @@ var Popup = React.createClass({
     });
     self.style.width = getWidth(target) - sumProps(self, 'border-left border-right') + 'px';
   },
+  statics: {
+    automount: function(component, callback) {
+      var node = document.createElement('span');
+      document.body.appendChild(node);
+
+      return {
+        popup: React.renderComponent(component, node, callback),
+        unmount: function() {
+          var ret = React.unmountComponentAtNode(node);
+          document.body.removeChild(node);
+          return ret;
+        }
+      }
+    }
+  },
+  handleOutsideClick: function(e) {
+    var clickTarget = e.target;
+    var thisTarget = this.props.getTarget();
+    var thisNode = this.getDOMNode();
+
+    if (clickTarget !== thisNode && clickTarget !== thisTarget && !thisNode.contains(clickTarget)) {
+      this.setState({active: false});
+    }
+  },
   componentDidMount: function() {
     this.position();
+    document.addEventListener('click', this.handleOutsideClick)
+  },
+  componentWillUnmount: function() {
+    document.removeEventListener('click', this.handleOutsideClick)
   },
   /*jshint ignore:start */
   render: function () {
+    if (!this.state.active) {
+      return <div />;
+    }
+
     return <div className='popup popup_bound'>
              <div className='popup__i'>{this.props.children}</div>
            </div>
