@@ -27,12 +27,8 @@ var getWidth = function(target) {
 
 var Popup = React.createClass({
   propTypes: {
+    active: React.PropTypes.bool,
     getTarget: React.PropTypes.func.isRequired
-  },
-  getInitialState: function() {
-    return {
-      active: this.props.active
-    };
   },
   position: function () {
     var self = this.getDOMNode();
@@ -50,13 +46,13 @@ var Popup = React.createClass({
       document.body.appendChild(node);
 
       return {
-        popup: React.renderComponent(component, node, callback),
-        unmount: function() {
+        component: React.renderComponent(component, node, callback),
+        unmountComponent: function() {
           var ret = React.unmountComponentAtNode(node);
           document.body.removeChild(node);
           return ret;
         }
-      }
+      };
     }
   },
   handleOutsideClick: function(e) {
@@ -77,11 +73,13 @@ var Popup = React.createClass({
   },
   /*jshint ignore:start */
   render: function () {
-    if (!this.state.active) {
-      return <div />;
-    }
+    var classes = React.addons.classSet({
+      'popup': true,
+      'popup_bound': true,
+      'popup_hidden': !this.props.active
+    });
 
-    return <div className='popup popup_bound'>
+    return <div className={classes}>
              <div className='popup__i'>{this.props.children}</div>
            </div>
   }

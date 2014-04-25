@@ -20,13 +20,9 @@ var Combobox = React.createClass({
     onAdd: React.PropTypes.func,
     onSelect: React.PropTypes.func
   },
-  getInitialState: function() {
-    return {
-      unmountPopup: noop
-    };
-  },
+  unmountPopup: noop,
   componentWillUnmount: function() {
-    this.state.unmountPopup();
+    this.unmountPopup();
   },
   getFilteredItems: function() {
     var inputValue = this.getTarget().value;
@@ -40,33 +36,36 @@ var Combobox = React.createClass({
     return filteredItems.length ? filteredItems : [{value: 'Found nothing', status: 'error'}];
   },
   handleChange: function() {
-    if (!this.state.popup) {
+    if (!this.popup) {
       this.showItems();
       return;
     }
-    this.state.popup.setItems(this.getFilteredItems());
+
+    this.popup.setProps({items: this.getFilteredItems()});
   },
   handleClick: function() {
     this.getTarget().select();
     this.showItems();
   },
   showItems: function() {
-    if (this.state.popup) {
-      this.state.popup.setVisible(true);
+    if (this.popup) {
+      this.popup.setProps({active: true});
       return;
     }
 
     /*jshint ignore:start */
-    var popup = Popup.automount(<PopupList active={true} as='value' items={this.getFilteredItems()} onSelect={this.handleSelect} getTarget={this.getTarget}/>);
+    var popupList = Popup.automount(
+        <PopupList active={true} as='value' items={this.getFilteredItems()} onSelect={this.handleSelect} getTarget={this.getTarget}/>
+    );
     /*jshint ignore:end */
 
-    this.setState({
-      unmountPopup: popup.unmount,
-      popup: popup.popup
-    });
+    this.popup = popupList.component;
+    this.unmountPopup = popupList.unmountComponent;
   },
   hideItems: function() {
-    this.state.popup.setVisible(false);
+    if (this.popup) {
+      this.popup.setProps({active: false});
+    }
   },
   handleKeys: function(e) {
     var value = this.getTarget().value;
@@ -81,6 +80,11 @@ var Combobox = React.createClass({
     // Input
     } else {
       this.showItems();
+
+      // Delegate keys to list
+      if (this.popup) {
+        this.popup.refs.list.handleKeys(e);
+      }
     }
   },
   handleSelect: function(item) {
@@ -94,7 +98,8 @@ var Combobox = React.createClass({
   /*jshint ignore:start */
   render: function() {
     return <input className='combobox__input' ref='input'
-        onKeyUp={this.handleKeys} onFocus={this.showItems} onClick={this.handleClick} onChange={this.handleChange} placeholder='filter me now!' />;
+        onKeyDown={this.handleKeys} onFocus={this.showItems} onClick={this.handleClick}
+        onChange={this.handleChange} placeholder='filter me now!' />;
   }
   /*jshint ignore:end */
 });

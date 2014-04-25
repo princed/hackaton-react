@@ -27,6 +27,10 @@
   border-top-right-radius: 0;
 }
 
+.popup_hidden {
+  display: none;
+}
+
 .popup__i {
   position: relative;
 
@@ -37,11 +41,4 @@
 
   border-radius: 3px;
   background-color: #FFF;
-
-  .popup_typed & {
-    display: table;
-    width: 100%;
-    padding: 0;
-  }
-
 }

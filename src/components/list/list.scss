@@ -43,7 +43,7 @@
   cursor: pointer;
   color: #000 !important;
 
-  &:hover:not(.list__item_error) {
+  &.list__item_active:not(.list__item_error) {
     color: #FFF !important;
     background-color: #25B7FF;
   }
