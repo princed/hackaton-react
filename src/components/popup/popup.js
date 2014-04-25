@@ -30,6 +30,11 @@ var Popup = React.createClass({
     active: React.PropTypes.bool,
     getTarget: React.PropTypes.func.isRequired
   },
+  getInitialState: function() {
+    return {
+      active: this.props.active
+    }
+  },
   position: function () {
     var self = this.getDOMNode();
     var target = this.props.getTarget();
@@ -76,7 +81,7 @@ var Popup = React.createClass({
     var classes = React.addons.classSet({
       'popup': true,
       'popup_bound': true,
-      'popup_hidden': !this.props.active
+      'popup_hidden': !this.state.active
     });
 
     return <div className={classes}>

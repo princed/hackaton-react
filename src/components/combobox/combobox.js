@@ -49,7 +49,7 @@ var Combobox = React.createClass({
   },
   showItems: function() {
     if (this.popup) {
-      this.popup.setProps({active: true});
+      this.popup.refs.popup.setState({active: true});
       return;
     }
 
@@ -64,7 +64,7 @@ var Combobox = React.createClass({
   },
   hideItems: function() {
     if (this.popup) {
-      this.popup.setProps({active: false});
+      this.popup.refs.popup.setState({active: false});
     }
   },
   handleKeys: function(e) {
