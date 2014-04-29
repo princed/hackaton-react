@@ -27,7 +27,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # App specific
-
+bower_components/
 node_modules/
 .tmp
 /src/scripts/main.js
